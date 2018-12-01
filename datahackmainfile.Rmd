@@ -1,0 +1,114 @@
+---
+title: "Data hack"
+author: "Subash"
+date: "December 1, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+##including the data
+
+
+
+```{r}
+df<-read.csv("goodcountry.csv", stringsAsFactors = FALSE)
+
+head(df)
+```
+
+
+```{r}
+
+ncol(df)
+```
+
+```{r}
+nrow(df)
+```
+```{r}
+colnames(df)
+```
+```{r}
+head(df,3)
+```
+```{r}
+tail(df,3)
+```
+```{r}
+summary(df)
+```
+```{r}
+cat ("The variations in Science and technology development\n")
+var(df$Scienceand.Technology)
+```
+
+```{r}
+cat("\nDensity plot of Culture is of no use \n")
+plot(density(df$Culture), col="red", main="Density Plot of Culture")
+```
+```{r}
+kf<-df[-1]
+kf<-kf[-1]
+kf$average<-rowSums(kf)
+df$average<-kf$average
+```
+
+```{r}
+cat("\nNoramlized Density plot of Culture using ggplot but its of no use")
+pd<-head(df,9)
+
+ggplot(pd , aes(Country,Culture))+geom_col(aes(fill=Country))
+
+
+```
+  
+```{r}
+top10
+
+```
+  
+```{r}
+ggplot(top10,aes(Country,Scienceand.Technology)) + geom_col(aes(fill=Country))
+```
+  
+```{r}
+arrange(top10,Scienceand.Technology)
+```
+  
+```{r}
+cor(df%>% select(Scienceand.Technology,Health.andWell.being,Culture,Peace.andSecurity,Planet.and.Climate))
+```
+  
+## Visualization and Analysis
+```{r fig.height=10, fig.width=10}
+ggplot(top10,aes(Country,Rank)) + geom_col() + labs(title = "top 10 good country",x="Country",y="Rank")
+```
+```{r}
+cat("")
+ggplot(df,aes(Rank,Culture))+geom_line(aes(x=Rank,y=Culture,color="red"))+theme_grey()+theme(legend.position="")+labs(title="Rank and Culture of worker")
+```
+
+  
