@@ -39,10 +39,32 @@ View(good_country)
 ```{r}
 table(is.na(good_country))
 ```
-## Histogram
+## Descriptive 
 ```{r}
-qplot(data = good_country, x = Rank, binwidth = 0.1)
+ggplot(data = good_country, aes(x = "Country", y = Rank)) +
+  geom_boxplot(aes(fill = Country))
 ```
+
+```{r}
+var(good_country$World.Order)
+sqrt(var(good_country$World.Order))
+
+```
+
+```{r}
+library(knitr)
+kable(summary(good_country))
+```
+
+## Histogram
+```{r fig.height= 10, fig.width=10}
+ggplot(data = good_country, aes(Country)) +
+  geom_bar()
+```
+```{r}
+
+```
+
 ```{r}
 subset(good_country, Rank <= 10)
 ```
