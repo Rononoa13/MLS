@@ -133,6 +133,30 @@ good_country
 ggplot(good_country,aes(Rank,Scienceand.Technology))+geom_line(aes(x=Culture,y=Scienceand.Technology,color="red"))+theme_classic()
 
 ```
+# Health and well being
+```{r}
+top_10_Health <- head(arrange(good_country, Health.andWell.being),10)
+
+top_10$Country <- as.factor(top_10$Country)
+top_10_Health
+```
+```{r fig.height= 10, fig.width=10}
+ggplot(top_10_Health, aes(Country, Health.andWell.being)) + 
+  geom_col() + labs(title = "Good Country index(top 10 Health)")
+```
+## Prosperity.andEquality
+```{r}
+top_10_PandE <- head(arrange(good_country, Prosperity.andEquality),10)
+
+top_10$Country <- as.factor(top_10$Country)
+top_10_PandE
+```
+```{r fig.height= 10, fig.width=10}
+ggplot(top_10_PandE, aes(Country, Prosperity.andEquality)) + 
+  geom_col() + labs(title = "Good Country index(top 10 Prosperity and Equality)")
+
+```
+
 
 
 ## TOp tail
@@ -142,7 +166,7 @@ below_10$Country <- as.factor(below_10$Country)
 below_10
 
 ```
-```{r}
+```{r fig.height= 10, fig.width=10}
 ggplot(below_10, aes(Country, Scienceand.Technology)) + 
   geom_col() + labs(title = "Good Country index(below 10)")
 ```
@@ -150,7 +174,7 @@ ggplot(below_10, aes(Country, Scienceand.Technology)) +
 # Distribution of data
 ```{r}
 # distribution
-ggplot(data = good_country, aes(Country)) + geom_density()
+
 ```
 
 
@@ -161,7 +185,8 @@ ggplot(data = good_country, aes(Country)) + geom_density()
 ## CORRGRAM
 ```{r}
 library(corrgram)
-corrgram(good_country, col.regions = colorRampPalette(c("red", "salmon",
-  "white", "royalblue", "navy")))
+corrgram(good_country, order=NULL, lower.panel=panel.shade,
+   text.panel=panel.txt,
+  main="GOod Country Index")
 ```
 
