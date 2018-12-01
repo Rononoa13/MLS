@@ -108,7 +108,29 @@ ggplot(top10,aes(Country,Rank)) + geom_col() + labs(title = "top 10 good country
 ```
 ```{r}
 cat("")
-ggplot(df,aes(Rank,Culture))+geom_line(aes(x=Rank,y=Culture,color="red"))+theme_grey()+theme(legend.position="")+labs(title="Rank and Culture of worker")
+ggplot(df,aes(Rank,Culture))+geom_area(aes(x=Rank,y=Culture,color="red"))+theme_grey()+theme(legend.position="")+labs(title="Area plot Rank and Culture of worker")
 ```
 
+```{r}
+
+```
+
+```{r}
+
+attach(df)
+plot(Rank,Culture, main="Scatterplot Example", 
+  	xlab="Rank ", ylab="Culture", pch=19)
+```
+
+```{r fig.width=20 fig.height=20}
+B=matrix(data=164,nrow=163,ncol=0)
+
+df$bottomcountries=B-df$Rank
+
+bottom_10<-tail(df,20)
+ggplot(bottom_10,aes(Country,bottomcountries))+geom_col(aes(fill=Country))+labs(title="Bottom 20 countries in Good Country Index Rank") + theme(axis.text.x= element_text(angle=90))
+
+
+```
+  
   
