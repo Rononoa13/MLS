@@ -1,0 +1,167 @@
+---
+title: "R-hackathon"
+author: "Sumit Luitel"
+date: "December 1, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r}
+getwd()
+good_country <- read.csv("/home/ed_666/Documents/R/goodcountry.csv", header = TRUE)
+summary(good_country)
+```
+```{r}
+View(good_country)
+```
+```{r}
+table(is.na(good_country))
+```
+## Histogram
+```{r}
+qplot(data = good_country, x = Rank, binwidth = 0.1)
+```
+```{r}
+subset(good_country, Rank <= 10)
+```
+```{r}
+typeof(good_country)
+max(good_country$Scienceand.Technology)
+names(good_country)
+str(good_country)
+dim(good_country)
+subset(good_country, Prosperity.andEquality == 1)
+```
+
+```{r}
+levels(good_country)
+#qplot(data = good_country, x = Culture)
+good_country <- select(good_country, -Total_sum)
+
+```
+```{r}
+Gc <- select(good_country, -Rank, -Country)
+rowSums(Gc)
+
+```
+
+```{r}
+good_country$Total_sum <- rowSums(Gc)
+```
+## Plots
+
+```{r}
+count <- table(good_country$Total_sum)
+```
+```{r}
+barplot(good_country$Total_sum)
+```
+
+```{r}
+library(ggplot2)
+sp <- ggplot(data = good_country, aes(x = Country, y = Rank )) + 
+  geom_point(shape = 1)
+  
+```
+```{r}
+sp + facet_wrap(~Country, ncol = 1)
+```
+```{r}
+barplot(table(good_country$Total_sum), main = "Total Sum", border = "red", density = 10)
+```
+
+```{r}
+subset(good_country, Peace.andSecurity == 1)
+#print("The country with Highest Culture", cul[cul$Country])
+cul <- subset(good_country, Culture == 1)
+cul$Country
+```
+##
+```{r}
+top_10 <- head(arrange(good_country, Rank),10)
+
+top_10$Country <- as.factor(top_10$Country)
+top_10
+```
+
+
+```{r}
+ggplot(top_10, aes(Country, Scienceand.Technology)) + 
+  geom_col() + labs(title = "Good Country index(top 10)")
+```
+```{r}
+arrange(top_10, Scienceand.Technology)
+```
+## Culture
+```{r}
+top_10_Culture <- head(arrange(good_country, Culture),10)
+
+top_10$Country <- as.factor(top_10$Country)
+top_10_Culture
+
+```
+
+```{r fig.height= 10, fig.width=10}
+ggplot(top_10_Culture, aes(Country, Culture)) + 
+  geom_col() + labs(title = "Good Country index(top 10)")
+```
+# Line Plot
+```{r}
+good_country
+ggplot(good_country,aes(Rank,Scienceand.Technology))+geom_line(aes(x=Culture,y=Scienceand.Technology,color="red"))+theme_classic()
+
+```
+
+
+## TOp tail
+```{r}
+below_10 <-  tail(arrange(good_country, Rank),10)
+below_10$Country <- as.factor(below_10$Country)
+below_10
+
+```
+```{r}
+ggplot(below_10, aes(Country, Scienceand.Technology)) + 
+  geom_col() + labs(title = "Good Country index(below 10)")
+```
+## EDA
+# Distribution of data
+```{r}
+# distribution
+ggplot(data = good_country, aes(Country)) + geom_density()
+```
+
+
+
+
+
+
+## CORRGRAM
+```{r}
+library(corrgram)
+corrgram(good_country, col.regions = colorRampPalette(c("red", "salmon",
+  "white", "royalblue", "navy")))
+```
+
